@@ -22,35 +22,27 @@ public:
         int dban=0; 
         
         while(dcnt>0 && rcnt>0){
-            int qsize = que.size(); 
-            for(int i=0; i<qsize; i++){
-                char now = que.front(); 
-                que.pop(); 
-                if(now == 'R'){
-                    if(rban > 0){
-                        rban--; 
-                        rcnt--; 
-                    } else {
-                        dban++; 
-                        que.push(now); 
-                    }
-                } else /* if(que.front() == \D\) */ {
-                    if(dban > 0){
-                        dban--; 
-                        dcnt--; 
-                    } else {
-                        rban++; 
-                        que.push(now); 
-                    }
+            char now = que.front(); 
+            que.pop(); 
+            if(now == 'R'){
+                if(rban > 0){
+                    rban--; 
+                    rcnt--; 
+                } else {
+                    dban++; 
+                    que.push(now); 
+                }
+            } else /* if(que.front() == \D\) */ {
+                if(dban > 0){
+                    dban--; 
+                    dcnt--; 
+                } else {
+                    rban++; 
+                    que.push(now); 
                 }
             }
         }
 
-        if(dcnt > 0){
-            return \Dire\; 
-        } else {
-            return \Radiant\; 
-        }
-        
+        return (rcnt) ? \Radiant\ : \Dire\; 
     }
 };
