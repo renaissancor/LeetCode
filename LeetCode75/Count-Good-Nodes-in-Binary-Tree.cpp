@@ -11,8 +11,7 @@
  */
 class Solution {
 public: 
-    int cnt; 
-    void isGood(TreeNode* node, int big){
+    void isGood(TreeNode* node, int big, int &cnt){
 
         if(node->val >= big){
             big = node->val; 
@@ -20,20 +19,20 @@ public:
         }
 
         if(node->left){
-            isGood(node->left, big);
+            isGood(node->left, big, cnt);
         }
 
         if(node->right){
-            isGood(node->right, big); 
+            isGood(node->right, big, cnt); 
         }
     }
 
 public:
     int goodNodes(TreeNode* root) {
-        cnt = 0; 
+        int cnt = 0; 
 
         if(root){
-            isGood(root, root->val); 
+            isGood(root, root->val, cnt); 
         }        
 
         return cnt;                
