@@ -11,40 +11,35 @@
  */
 class Solution {
 private: 
-    vector<int> seq1; 
-    vector<int> seq2; 
+    vector<int> seq; 
 public:
-    void find(TreeNode* iter, bool seq12) {
-        if(iter->left == nullptr && iter->right == nullptr){
-            if(seq12) {
-                seq1.push_back(iter->val); 
-            } else {
-                seq2.push_back(iter->val); 
-            }
-        } else if(iter->left == nullptr) {
-            find(iter->right, seq12); 
-        } else if(iter->right == nullptr) {
-            find(iter->left, seq12); 
+    void find(TreeNode* node) {
+        if(node->left == nullptr && node->right == nullptr){
+            seq.push_back(node->val); 
+        } else if(node->left == nullptr) {
+            find(node->right); 
+        } else if(node->right == nullptr) {
+            find(node->left); 
         } else {
-            find(iter->left, seq12); 
-            find(iter->right, seq12); 
+            find(node->left); 
+            find(node->right); 
         }
     }
 
     bool leafSimilar(TreeNode* root1, TreeNode* root2) {
 
-        find(root1, true);
-        find(root2, false); 
+        find(root1); 
+        size_t half = seq.size(); 
+        find(root2); 
 
-        if(seq1.size() == seq2.size()){
-            for(size_t i=0; i<seq1.size(); i++){
-                if(seq1[i] != seq2[i]){
+        if(half*2 == seq.size()) {
+            for(size_t i=0; i<half; ++i){
+                if(seq[i] != seq[i+half]){
                     return false; 
                 }
             }
             return true; 
         }
-        
         return false;  
     }
 };
