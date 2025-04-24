@@ -13,31 +13,36 @@
 class Solution {
 private:
     // Input vector array contains value from root at idx 0 to node now  
-void getSums(TreeNode* node, vector<int> &arr, int &count, const int &target){
+    struct Context {
+        int count = 0; 
+        int target; 
+        vector<int> arr; 
+    }; 
+
+    void getSums(TreeNode* node, Context &ctx){
 
         if(!node) return; 
 
         long sum = 0; 
-        arr.push_back(node->val);
+        ctx.arr.push_back(node->val);
 
-        for (int i=arr.size()-1; i>=0; --i){
-            sum += arr[i]; 
-            if(sum == target) ++count;             
+        for (int i=ctx.arr.size()-1; i>=0; --i){
+            sum += ctx.arr[i]; 
+            if(sum == ctx.target) ++(ctx.count); 
         }
 
-        getSums(node->left , arr, count, target); 
-        getSums(node->right, arr, count, target); 
+        getSums(node->left , ctx); 
+        getSums(node->right, ctx); 
 
-        arr.pop_back(); 
+        ctx.arr.pop_back(); 
     } 
 
 public:
     int pathSum(TreeNode* root, int targetSum) {
-        const int target = targetSum; 
-        int count = 0; 
-        vector<int> arr; 
-        getSums(root, arr, count, target); 
+        Context ctx;
+        ctx.target = targetSum;
+        getSums(root, ctx); 
 
-        return count;         
+        return ctx.count;         
     }
 };
