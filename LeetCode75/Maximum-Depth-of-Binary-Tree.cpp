@@ -12,26 +12,7 @@
 
 class Solution {
 public:
-    int getDepth(TreeNode* node)
-    {
-        int ans = 1; 
-        int l_cnt = 0, r_cnt = 0;
-
-        if(node->left  != nullptr){
-            l_cnt = getDepth(node->left ); 
-        }
-
-        if(node->right != nullptr){
-            r_cnt = getDepth(node->right); 
-        }
-
-        ans += (l_cnt > r_cnt ? l_cnt : r_cnt); 
-
-        return ans; 
-    }
-
     int maxDepth(TreeNode* root) {
-        if(root == nullptr) return 0; 
-        return getDepth(root); 
+        return root ? 1+max(maxDepth(root->left), maxDepth(root->right)) : 0; 
     }
 };
