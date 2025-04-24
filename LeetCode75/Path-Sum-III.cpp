@@ -12,11 +12,8 @@
 
 class Solution {
 private:
-    int count; 
-    int target; 
-
     // Input vector array contains value from root at idx 0 to node now  
-void getSums(TreeNode* node, vector<int> &arr){
+void getSums(TreeNode* node, vector<int> &arr, int &count, const int &target){
 
         if(!node) return; 
 
@@ -28,18 +25,18 @@ void getSums(TreeNode* node, vector<int> &arr){
             if(sum == target) ++count;             
         }
 
-        getSums(node->left, arr); 
-        getSums(node->right, arr); 
+        getSums(node->left , arr, count, target); 
+        getSums(node->right, arr, count, target); 
 
         arr.pop_back(); 
     } 
 
 public:
     int pathSum(TreeNode* root, int targetSum) {
-        count = 0; 
-        target = targetSum; 
+        const int target = targetSum; 
+        int count = 0; 
         vector<int> arr; 
-        getSums(root, arr); 
+        getSums(root, arr, count, target); 
 
         return count;         
     }
