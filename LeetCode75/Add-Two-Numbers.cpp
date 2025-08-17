@@ -19,7 +19,7 @@ public:
 
         while(l1 || l2 || round) 
         {
-            int new_val = 0; 
+            int new_val = round; 
             if(l1) {
                 new_val += l1->val; 
                 l1 = l1->next;
@@ -27,10 +27,6 @@ public:
             if(l2) {
                 new_val += l2->val;
                 l2 = l2->next; 
-            }
-            if(round) {
-                new_val += round; 
-                round = 0; 
             }
             
             ListNode *new_node = new ListNode(new_val % 10); 
